@@ -14,10 +14,7 @@ void procentagem_aprovacao(int alunos_total, float * medias);
 int main (void){
 
     printf("## Bem vindo ao sistema corretor de provas ## \n --pressione enter para continuar...");
-
-
     getchar();
-
     system("clear");
 
     int tamanho_prova;
@@ -25,9 +22,8 @@ int main (void){
     int quantidade_alunos = 3;
 
     gabaritoTotal = gabarito(&tamanho_prova);
-    
-    float * medias = (float*) malloc(quantidade_alunos * sizeof(float));
 
+    float * medias = (float*) malloc(quantidade_alunos * sizeof(float));
     if(medias == NULL){
         printf("\n! Erro no armazenamento das médias !");
         exit(1);
