@@ -6,6 +6,16 @@
 // para setlocale
 #include <locale.h>
 
+typedef struct user{
+
+    char username[20];
+    int matricula;
+    char email[79];
+    char senha[20];
+    int usuario_admin;
+    
+} Usuario;
+
 int menuInicialLoginCadastro();
 int menuLogin();
 int cadastroUsuario();
