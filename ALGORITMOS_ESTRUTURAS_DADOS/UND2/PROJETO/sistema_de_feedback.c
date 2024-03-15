@@ -339,3 +339,49 @@ void limpar_sessao_usuario(Usuario *usuario)
     usuario->usuario_admin = 0;
 }
 
+void cadastrarCategoria(Usuario userAdmin)
+{
+    FILE *file_categorias = fopen("categorias.b", "ab");
+
+    if (file_categorias == NULL)
+    {
+        printf("Erro ao acessar base de dados das categorias.\n");
+        return 1;
+    }
+
+    Categoria cadastro_categoria;
+    if (userAdmin.username != NULL)
+    {
+        strcpy(cadastro_categoria.username_admin_cadastro, userAdmin.username);
+    }
+    else
+    {
+        printf("Erro na indentificação do administrador da categoria");
+        return 1;
+    }
+
+    printf("1 - Criar categoria.\n");
+    printf("Informe o nome da categoria:\n");
+
+    // Limpa o buffer do stdin
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+
+    if (fgets(cadastro_categoria.nome_categoria, 30, stdin) == NULL)
+    {
+        printf("Erro ao ler nome da categoria.\n");
+        fclose(file_categorias);
+        return 1;
+    }
+
+    if (fwrite(&cadastro_categoria, sizeof(Categoria), 1, file_categorias) != 1)
+    {
+        printf("Erro ao escrever na base de dados das categorias.\n");
+        fclose(file_categorias);
+        return 1;
+    }
+
+    fclose(file_categorias);
+    printf("Categoria cadastrada com sucesso!");
+    return 0;
+}
