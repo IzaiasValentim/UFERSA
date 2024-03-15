@@ -34,6 +34,12 @@ int menuUserComum(Usuario *usuario);
 int menuUserAdmin(Usuario *usuario);
 void limpar_sessao_usuario(Usuario *usuario);
 
+// Protótipos das funções de gerencia da categoria.
+void cadastrarCategoria(Usuario userAdmin);
+void listarCategorias();
+void atualizarCategoria(Usuario userAdmin);
+void DeletarCategoria();
+
 void prints_usuarios_teste()
 {
     FILE *file = fopen("usuarios.b", "rb");
