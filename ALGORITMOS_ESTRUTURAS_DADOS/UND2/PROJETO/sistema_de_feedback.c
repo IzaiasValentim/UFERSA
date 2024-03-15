@@ -19,6 +19,13 @@ typedef struct user
 
 } Usuario;
 
+typedef struct categoria
+{
+    char nome_categoria[30];
+    char username_admin_cadastro[20];
+
+} Categoria;
+
 // Protótipos das funções de navegação.
 int menuInicialLoginCadastro();
 int menuLogin(Usuario *usuario);
@@ -104,6 +111,14 @@ int main(void)
                 {
                     escolha_admin = menuUserAdmin(&sessao_user);
                     // Funções do menu Admin;
+                    if (escolha_admin == 1)
+                    {
+                        cadastrarCategoria(sessao_user);
+                    }
+                    else if (escolha_admin == 2)
+                    {
+                        listarCategorias();
+                    }
                 } while (escolha_admin != 0);
             }
 
@@ -188,7 +203,7 @@ int menuLogin(Usuario *usuario)
     }
 
     // Permite o acesso de usuário anônimo.
-    if (strcmp(email, "anonimo") == 0 )
+    if (strcmp(email, "anonimo") == 0)
     {
         strcpy(usuario->username, "Anonimo(a)");
         return 1;
@@ -271,7 +286,7 @@ int cadastroUsuario()
         fclose(file_usuario);
         return 1;
     }
-
+    usuario.usuario_admin = 1;
     if (fwrite(&usuario, sizeof(Usuario), 1, file_usuario) != 1)
     {
         printf("Erro ao escrever no arquivo de usuários.\n");
@@ -285,7 +300,7 @@ int cadastroUsuario()
 int menuUserComum(Usuario *usuario)
 {
     int opc = 0;
-    printf("Menu usuário - sessão: %s\n",usuario->username);
+    printf("Menu usuário - sessão: %s\n", usuario->username);
     printf("1 - Registrar feedback.\n");
     printf("2 - Consulta de satisfação.\n");
     printf("3 - Consultar categorias.\n");
@@ -296,7 +311,7 @@ int menuUserComum(Usuario *usuario)
 int menuUserAdmin(Usuario *usuario)
 {
     int opc = 0;
-    printf("Menu administrador - sessão: %s\n",usuario->username);
+    printf("Menu administrador - sessão: %s\n", usuario->username);
     printf("1 - Criar categoria.\n");
     printf("2 - Vizualizar categorias.\n");
     printf("3 - Atualizar categoria.\n");
@@ -317,3 +332,4 @@ void limpar_sessao_usuario(Usuario *usuario)
     strcpy(usuario->username, "");
     usuario->usuario_admin = 0;
 }
+
