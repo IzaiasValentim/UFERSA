@@ -385,3 +385,23 @@ void cadastrarCategoria(Usuario userAdmin)
     printf("Categoria cadastrada com sucesso!");
     return 0;
 }
+
+void listarCategorias()
+{
+    FILE *file_categorias = fopen("categorias.b", "rb");
+    if (file_categorias == NULL)
+    {
+        printf("Erro ao acessar base de dados das categorias.\n");
+    }
+    Categoria mock_categoria;
+
+    int cont = 0;
+    printf("2 - Vizualizar categorias:\n");
+    while (fread(&mock_categoria, sizeof(Categoria), 1, file_categorias))
+    {
+        printf("\t%d-Nome: %s\n",
+               ++cont, mock_categoria.nome_categoria);
+    }
+
+    fclose(file_categorias);
+}
