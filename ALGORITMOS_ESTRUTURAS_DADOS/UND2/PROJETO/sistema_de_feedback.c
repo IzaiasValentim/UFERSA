@@ -22,8 +22,19 @@ typedef struct categoria
 {
     char nome_categoria[30];
     char username_admin_cadastro[20];
+    char retorno_categoria[200];
 
 } Categoria;
+
+typedef struct feedback
+{
+
+    char username_autor[20];
+    char texto[200];
+    float nota;
+    char nome_categoria[30];
+
+} Feedback;
 
 // Protótipos das funções de navegação.
 int menuInicialLoginCadastro();
@@ -33,13 +44,21 @@ int menuUserComum(Usuario *usuario);
 int menuUserAdmin(Usuario *usuario);
 void limpar_sessao_usuario(Usuario *usuario);
 
+// Protótipos de funções auxiliares
+int verificaEmail(char *email);
+
 // Protótipos das funções de gerencia da categoria.
 void cadastrarCategoria(Usuario userAdmin);
 void listarCategorias();
-void atualizarCategoria(Usuario userAdmin, char *nomeCategoria);
+int buscarCategoria(char *busca);
+void atualizarCategoria(Usuario userAdmin, char *nomeCategoria, char *retornoFeedback);
 void deletarCategoria(char *nomeCategoria);
 int numeroCategorias();
 int cadastroAdministrador();
+
+// Protótipos das funções de gerência do feedback.
+void cadastrarFeedback(Usuario usuarioComum);
+void listarFeedback();
 
 void prints_usuarios_teste()
 {
@@ -57,7 +76,7 @@ int main(void)
 {
     // Variável de controle para o primeiro menu.
     int opcao_navegacao_inicial;
-    
+
     setlocale(LC_ALL, "portuguese");
 
     prints_usuarios_teste();
@@ -90,12 +109,11 @@ int main(void)
             // 0 -> Erro no login;
             // 1 -> Usuario comum/anonimo autorizado;
             // 2 -> Administrador autorizado;
-            
+
             status_login = menuLogin(&sessao_user);
 
             if (status_login == 1)
-            {// <- Início Área usuario comum/anonimo logado.
-                
+            { // <- Início Área usuario comum/anonimo logado.
 
                 printf("\nBem vindo usuário, a seguir você terá acesso a área de feedback\n");
                 Sleep(2000);
@@ -107,14 +125,22 @@ int main(void)
 
                     escolha_comum = menuUserComum(&sessao_user);
                     // Funções do menuUsuario.
+                    if (escolha_comum == 1)
+                    {
+                        printf("1 - Registro de feedback:\n");
+                        cadastrarFeedback(sessao_user);
+                    }
+                    else if (escolha_comum == 3)
+                    {
+                        listarCategorias();
+                    }
 
                 } while (escolha_comum != 0);
-            }//<- Fim da Área do usuário comum/anonimo.
+            } //<- Fim da Área do usuário comum/anonimo.
 
             else if (status_login == 2)
-            {//-> Área usuario admin logado.
-                
-                 
+            { //-> Área usuario admin logado.
+
                 printf("\nBem vindo admin, a seguir você terá acesso a área de controle\n");
                 printf("%s\n", sessao_user.username);
                 Sleep(2000);
@@ -123,62 +149,88 @@ int main(void)
                 do
                 {
                     escolha_admin = menuUserAdmin(&sessao_user);
-                        // Funções do menu Admin;
-                        if (escolha_admin == 1)
+                    // Funções do menu Admin;
+                    if (escolha_admin == 1)
+                    {
+                        cadastrarCategoria(sessao_user);
+                    }
+                    else if (escolha_admin == 2)
+                    {
+                        listarCategorias();
+                    }
+                    else if (escolha_admin == 3)
+                    {
+                        char categoriaBusca[30];
+
+                        printf("Informe o nome da categoria:\n");
+                        // Limpa o buffer do stdin
+                        int c;
+                        while ((c = getchar()) != '\n' && c != EOF)
+                            ;
+
+                        if (fgets(categoriaBusca, 30, stdin) == NULL)
                         {
-                            cadastrarCategoria(sessao_user);
+                            printf("\nErro ao ler nome da busca.\n");
                         }
-                        else if (escolha_admin == 2)
+
+                        atualizarCategoria(sessao_user, categoriaBusca, NULL);
+                    }
+                    else if (escolha_admin == 4)
+                    {
+                        char categoriaBusca[30];
+
+                        printf("Informe o nome da categoria:\n");
+                        // Limpa o buffer do stdin
+                        int c;
+                        while ((c = getchar()) != '\n' && c != EOF)
+                            ;
+
+                        if (fgets(categoriaBusca, 30, stdin) == NULL)
                         {
-                            listarCategorias();
+                            printf("\nErro ao ler nome da busca.\n");
                         }
-                        else if (escolha_admin == 3)
+
+                        deletarCategoria(categoriaBusca);
+                    }
+                    else if (escolha_admin == 5)
+                    {
+                        listarFeedback();
+                    }
+                    else if (escolha_admin == 6)
+                    {
+
+                        char categoriaBusca[30];
+                        char retorno[200];
+                        printf("Informe o nome da categoria:\n");
+                        // Limpa o buffer do stdin
+                        int c;
+                        while ((c = getchar()) != '\n' && c != EOF)
+                            ;
+
+                        if (fgets(categoriaBusca, 30, stdin) == NULL)
                         {
-                            char categoriaBusca[30];
-
-                            printf("Informe o nome da categoria:\n");
-                            // Limpa o buffer do stdin
-                            int c;
-                            while ((c = getchar()) != '\n' && c != EOF)
-                                ;
-
-                            if (fgets(categoriaBusca, 30, stdin) == NULL)
-                            {
-                                printf("\nErro ao ler nome da busca.\n");
-                            }
-
-                            atualizarCategoria(sessao_user, categoriaBusca);
+                            printf("\nErro ao ler nome da busca.\n");
                         }
-                        else if (escolha_admin == 4)
+                        printf("Informe o retorno à categoria:\n");
+                        if (fgets(retorno, 200, stdin) == NULL)
                         {
-                            char categoriaBusca[30];
-
-                            printf("Informe o nome da categoria:\n");
-                            // Limpa o buffer do stdin
-                            int c;
-                            while ((c = getchar()) != '\n' && c != EOF)
-                                ;
-
-                            if (fgets(categoriaBusca, 30, stdin) == NULL)
-                            {
-                                printf("\nErro ao ler nome da busca.\n");
-                            }
-
-                            deletarCategoria(categoriaBusca);
+                            printf("\nErro ao ler retorno.\n");
                         }
-                        else if (escolha_admin == 6)
-                        {
-                            cadastroAdministrador();
-                        }
+
+                        atualizarCategoria(sessao_user, categoriaBusca, retorno);
+                    }
+                    else if (escolha_admin == 7)
+                    {
+                        cadastroAdministrador();
+                    }
                 } while (escolha_admin != 0);
-            }// <- fim área usuario admin logado.
+            } // <- fim área usuario admin logado.
             else
-            {// <- Login sem sucesso.
+            { // <- Login sem sucesso.
                 printf("Falha no login");
             }
 
             limpar_sessao_usuario(&sessao_user);
-            printf("User logado: %s\n", sessao_user.username);
             // Retoma a execução no menu inicial.
             continue;
         }
@@ -209,6 +261,42 @@ int main(void)
 
     } while (opcao_navegacao_inicial != 0);
 
+    return 0;
+}
+
+int verificaEmail(char *email)
+{
+    // Verifica se o email contém o caractere '@'
+    char *arroba = strchr(email, '@');
+    if (arroba == NULL)
+    {
+        printf("E email deve ter o caractere @.\n");
+        return 1;
+    }
+
+    // Verifica se o comprimento do email é menor que 80 caracteres
+    if (strlen(email) >= 80)
+    {
+        printf("O email deve ser menor que 80 caracteres.\n");
+        return 1;
+    }
+
+    FILE *arquivo = fopen("usuarios.b", "rb");
+    if (arquivo == NULL)
+    {
+        return 1; // Se o arquivo não puder ser aberto, retorna falso
+    }
+
+    Usuario usuario;
+    while (fread(&usuario, sizeof(Usuario), 1, arquivo))
+    {
+        if (strcmp(usuario.email, email) == 0)
+        {
+            fclose(arquivo);
+            printf("Email já cadastrado na base de dados.\n");
+            return 1;
+        }
+    }
     return 0;
 }
 
@@ -329,7 +417,10 @@ int cadastroUsuario()
         fclose(file_usuario);
         return 1;
     }
-
+    if (verificaEmail(usuario.email) == 1)
+    {
+        return 1;
+    }
     printf("Informe a senha\n");
     if (scanf("%s", usuario.senha) != 1)
     {
@@ -353,9 +444,9 @@ int menuUserComum(Usuario *usuario)
 {
     int opc = 0;
     printf("Menu usuário - sessão: %s\n", usuario->username);
-    printf("1 - Registrar feedback.\n");
-    printf("2 - Consulta de satisfação.\n");
-    printf("3 - Consultar categorias.\n");
+    printf("1 - Registrar feedback.\n");     // ok
+    printf("2 - Consulta de satisfação.\n"); // a fazer.
+    printf("3 - Consultar categorias.\n");   // ok
     printf("0 - Sair.\n");
     scanf("%d", &opc);
     return opc;
@@ -365,14 +456,14 @@ int menuUserAdmin(Usuario *usuario)
 {
     int opc = 0;
     printf("Menu administrador - sessão: %s\n", usuario->username);
-    printf("1 - Criar categoria.\n");//ok
-    printf("2 - Vizualizar categorias.\n");//ok
-    printf("3 - Atualizar categoria.\n");//ok
-    printf("4 - Deletar categoria.\n");//ok
-    printf("5 - Cadastrar retorno.\n");
-    printf("6 - Cadastrar admnistrador.\n");//ok
-    printf("7 - Excluir admnistrador.\n");
-    printf("0 - Sair.\n");//ok
+    printf("1 - Criar categoria.\n");                  // ok
+    printf("2 - Vizualizar categorias.\n");            // ok
+    printf("3 - Atualizar categoria.\n");              // ok
+    printf("4 - Deletar categoria.\n");                // ok
+    printf("5 - Vizualizar feedback por categoria\n"); // ok
+    printf("6 - Cadastrar retorno.\n");                // ok
+    printf("7 - Cadastrar admnistrador.\n");           // ok
+    printf("0 - Sair.\n");                             // ok
 
     scanf("%d", &opc);
     return opc;
@@ -422,6 +513,8 @@ void cadastrarCategoria(Usuario userAdmin)
         return;
     }
 
+    strcpy(cadastro_categoria.retorno_categoria, "");
+
     if (fwrite(&cadastro_categoria, sizeof(Categoria), 1, file_categorias) != 1)
     {
         printf("Erro ao escrever na base de dados das categorias.\n");
@@ -447,14 +540,14 @@ void listarCategorias()
     printf("2 - Vizualizar categorias:\n");
     while (fread(&mock_categoria, sizeof(Categoria), 1, file_categorias))
     {
-        printf("\t%d-Nome: %s\n",
-               ++cont, mock_categoria.nome_categoria);
+        printf("\t%d-Nome: %s - R: %s;\n",
+               ++cont, mock_categoria.nome_categoria, mock_categoria.retorno_categoria);
     }
 
     fclose(file_categorias);
 }
 
-void atualizarCategoria(Usuario userAdmin, char *nomeCategoria)
+void atualizarCategoria(Usuario userAdmin, char *nomeCategoria, char *retornoFeedback)
 {
     int numero = numeroCategorias();
     Categoria cats[numero];
@@ -471,21 +564,32 @@ void atualizarCategoria(Usuario userAdmin, char *nomeCategoria)
     file_categorias = fopen("categorias.b", "wb");
     for (i = 0; i < numero; i++)
     {
+
         if (strcmp(cats[i].nome_categoria, nomeCategoria) == 0)
         {
-            char novoNome[30];
 
-            printf("Informe o novo nome da categoria:\n");
-
-            if (fgets(novoNome, 30, stdin) == NULL)
+            if (retornoFeedback == NULL)
             {
-                printf("Erro ao ler nome da categoria.\n");
-                fclose(file_categorias);
-                return;
+                // Neste caso o nome da categoria é atualizado.
+                char novoNome[30];
+                printf("Informe o novo nome da categoria:\n");
+
+                if (fgets(novoNome, 30, stdin) == NULL)
+                {
+                    printf("Erro ao ler nome da categoria.\n");
+                    fclose(file_categorias);
+                    return;
+                }
+                strcpy(cats[i].nome_categoria, novoNome);
+                strcpy(cats[i].username_admin_cadastro, userAdmin.username);
             }
-            strcpy(cats[i].nome_categoria, novoNome);
-            strcpy(cats[i].username_admin_cadastro, userAdmin.username);
+            else
+            {
+                // Neste caso é cadastrado um retono para a categoria.
+                strcpy(cats[i].retorno_categoria, retornoFeedback);
+            }
         }
+
         fwrite(&cats[i], sizeof(Categoria), 1, file_categorias);
     }
     fclose(file_categorias);
@@ -510,7 +614,7 @@ void deletarCategoria(char *nomeCategoria)
     file_categorias = fopen("categorias.b", "wb");
     for (i = 0; i < numero; i++)
     {
-        if (strcmp(cats[i].nome_categoria, nomeCategoria) != 0)
+        if (strcmp(cats[i].nome_categoria, nomeCategoria) == 0)
         {
             fwrite(&cats[i], sizeof(Categoria), 1, file_categorias);
         }
@@ -556,6 +660,11 @@ int cadastroAdministrador()
         return 1;
     }
 
+    if (verificaEmail(usuario.email) == 1)
+    {
+        return 1;
+    }
+
     printf("Informe a senha do adm\n");
     if (scanf("%s", usuario.senha) != 1)
     {
@@ -592,4 +701,128 @@ int numeroCategorias()
     }
     fclose(file_categorias);
     return numero;
+}
+
+void cadastrarFeedback(Usuario usuarioComum)
+{
+    listarCategorias();
+    char busca[30];
+
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
+
+    printf("\nInforme o nome da categoria:\n");
+
+    if (fgets(busca, 30, stdin) == NULL)
+    {
+        printf("Erro ao ler nome da categoria.\n");
+        return;
+    }
+    if (buscarCategoria(busca) != 1)
+    {
+        return;
+    }
+
+    FILE *file_feedbacks = fopen("feedbacks.b", "ab");
+
+    if (file_feedbacks == NULL)
+    {
+        printf("Erro ao abrir o arquivo de usuários.\n");
+        return;
+    }
+
+    Feedback cadastro_feedback;
+
+    strcpy(cadastro_feedback.username_autor, usuarioComum.username);
+    strcpy(cadastro_feedback.nome_categoria, busca);
+
+    printf("Informe o seu feedback\n");
+    if (fgets(cadastro_feedback.texto, 200, stdin) == NULL)
+    {
+        printf("Erro ao coletar feedback.\n");
+        fclose(file_feedbacks);
+        return;
+    }
+
+    printf("Informe a nota para a categoria:\n");
+    if (scanf("%f", &cadastro_feedback.nota) != 1)
+    {
+        printf("Erro ao ler nota.\n");
+        fclose(file_feedbacks);
+    }
+
+    if (fwrite(&cadastro_feedback, sizeof(Feedback), 1, file_feedbacks) != 1)
+    {
+        printf("Erro ao escrever no arquivo de usuários.\n");
+        fclose(file_feedbacks);
+    }
+    printf("Obrigado, salvo com sucesso!\n");
+    fclose(file_feedbacks);
+}
+
+void listarFeedback()
+{
+
+    listarCategorias();
+    char busca[30];
+
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
+
+    printf("\nInforme o nome da categoria:\n");
+
+    if (fgets(busca, 30, stdin) == NULL)
+    {
+        printf("Erro ao ler nome da categoria.\n");
+        return;
+    }
+    if (buscarCategoria(busca) != 1)
+    {
+        return;
+    }
+
+    FILE *file_categorias = fopen("feedbacks.b", "rb");
+    if (file_categorias == NULL)
+    {
+        printf("Erro ao acessar base de dados de feedbacks.\n");
+    }
+
+    Feedback mock_feedback;
+
+    int cont = 0;
+    while (fread(&mock_feedback, sizeof(Feedback), 1, file_categorias))
+    {
+        if (strcmp(mock_feedback.nome_categoria, busca) == 0)
+        {
+            printf("%d %s %s %.2f;\n", ++cont, mock_feedback.texto, mock_feedback.username_autor, mock_feedback.nota);
+        }
+    }
+
+    fclose(file_categorias);
+}
+
+int buscarCategoria(char *busca)
+{
+
+    FILE *file_categorias = fopen("categorias.b", "rb");
+    if (file_categorias == NULL)
+    {
+        printf("Erro ao acessar base de dados das categorias.\n");
+    }
+    Categoria mock_categoria;
+
+    printf("2 - Vizualizar categorias:\n");
+    while (fread(&mock_categoria, sizeof(Categoria), 1, file_categorias))
+    {
+        if (strcmp(busca, mock_categoria.nome_categoria) == 0)
+        {
+            strcpy(busca, mock_categoria.nome_categoria);
+            return 1;
+        }
+    }
+
+    fclose(file_categorias);
+    return 0;
 }
