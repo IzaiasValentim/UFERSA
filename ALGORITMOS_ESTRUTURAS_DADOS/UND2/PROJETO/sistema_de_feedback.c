@@ -59,6 +59,7 @@ int cadastroAdministrador();
 // Protótipos das funções de gerência do feedback.
 void cadastrarFeedback(Usuario usuarioComum);
 void listarFeedback();
+void calculoSatisfacao();
 
 void prints_usuarios_teste()
 {
@@ -129,6 +130,10 @@ int main(void)
                     {
                         printf("1 - Registro de feedback:\n");
                         cadastrarFeedback(sessao_user);
+                    }
+                    else if (escolha_comum == 2)
+                    {
+                        calculoSatisfacao();
                     }
                     else if (escolha_comum == 3)
                     {
@@ -445,7 +450,7 @@ int menuUserComum(Usuario *usuario)
     int opc = 0;
     printf("Menu usuário - sessão: %s\n", usuario->username);
     printf("1 - Registrar feedback.\n");     // ok
-    printf("2 - Consulta de satisfação.\n"); // a fazer.
+    printf("2 - Consulta de satisfação.\n"); // ok.
     printf("3 - Consultar categorias.\n");   // ok
     printf("0 - Sair.\n");
     scanf("%d", &opc);
@@ -798,6 +803,59 @@ void listarFeedback()
         {
             printf("%d %s %s %.2f;\n", ++cont, mock_feedback.texto, mock_feedback.username_autor, mock_feedback.nota);
         }
+    }
+
+    fclose(file_categorias);
+}
+
+void calculoSatisfacao()
+{
+
+    listarCategorias();
+    char busca[30];
+
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
+
+    printf("\nInforme o nome da categoria:\n");
+
+    if (fgets(busca, 30, stdin) == NULL)
+    {
+        printf("Erro ao ler nome da categoria.\n");
+        return;
+    }
+    if (buscarCategoria(busca) != 1)
+    {
+        return;
+    }
+
+    FILE *file_categorias = fopen("feedbacks.b", "rb");
+    if (file_categorias == NULL)
+    {
+        printf("Erro ao acessar base de dados de feedbacks.\n");
+    }
+
+    Feedback mock_feedback;
+
+    int cont = 0;
+    float soma = 0.0;
+
+    while (fread(&mock_feedback, sizeof(Feedback), 1, file_categorias))
+    {
+        if (strcmp(mock_feedback.nome_categoria, busca) == 0)
+        {
+            soma += mock_feedback.nota;
+            cont++;
+        }
+    }
+    if (cont > 0)
+    {
+        printf("Satisfação média do(a) %s é %.1f pontos\n", busca, soma / cont);
+    }
+    else
+    {
+        printf("Ainda não foram registrados feedbacks para %s\n", busca);
     }
 
     fclose(file_categorias);
