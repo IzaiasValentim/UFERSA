@@ -6,6 +6,7 @@
 // para setlocale
 #include <locale.h>
 
+// Para operações com cadeias de caracteres. 
 #include <string.h>
 
 typedef struct user
@@ -79,8 +80,9 @@ int main(void)
     int opcao_navegacao_inicial;
 
     setlocale(LC_ALL, "portuguese");
-
-    prints_usuarios_teste();
+    
+    // Essa função é apenas demonstrativa em desenvolvimento. Em produção ela não existiria.
+    // prints_usuarios_teste();
 
     printf("Bem vindo(a) a plataforma de feedback\n");
     Sleep(1000);
