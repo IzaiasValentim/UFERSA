@@ -6,8 +6,11 @@
 // para setlocale
 #include <locale.h>
 
-// Para operações com cadeias de caracteres. 
+// Para operações com cadeias de caracteres.
 #include <string.h>
+
+// Para a função de limpar o terminal.
+#include <stdlib.h>
 
 typedef struct user
 {
@@ -47,6 +50,11 @@ void limpar_sessao_usuario(Usuario *usuario);
 
 // Protótipos de funções auxiliares
 int verificaEmail(char *email);
+void limpar_terminal()
+{
+    system("cls"); // Para windows.
+    // system("clear"); // Para Linux/Unix.
+}
 
 // Protótipos das funções de gerencia da categoria.
 void cadastrarCategoria(Usuario userAdmin);
@@ -80,8 +88,8 @@ int main(void)
     int opcao_navegacao_inicial;
 
     setlocale(LC_ALL, "portuguese");
-    
-    // Essa função é apenas demonstrativa em desenvolvimento. Em produção ela não existiria.
+
+    // Essa função é apenas demonstrativa em desenvolvimento e testes. Em produção ela não existiria:
     // prints_usuarios_teste();
 
     printf("Bem vindo(a) a plataforma de feedback\n");
@@ -112,13 +120,11 @@ int main(void)
             // 0 -> Erro no login;
             // 1 -> Usuario comum/anonimo autorizado;
             // 2 -> Administrador autorizado;
-
+            limpar_terminal();
             status_login = menuLogin(&sessao_user);
-
             if (status_login == 1)
             { // <- Início Área usuario comum/anonimo logado.
-
-                printf("\nBem vindo usuário, a seguir você terá acesso a área de feedback\n");
+                printf("\nBem vindo usuario, a seguir voce tera acesso a area de feedback\n");
                 Sleep(2000);
                 printf("%s\n", sessao_user.username);
                 int escolha_comum;
@@ -141,14 +147,15 @@ int main(void)
                     {
                         listarCategorias();
                     }
+                    getchar();
 
                 } while (escolha_comum != 0);
+                limpar_terminal();
             } //<- Fim da Área do usuário comum/anonimo.
 
             else if (status_login == 2)
             { //-> Área usuario admin logado.
-
-                printf("\nBem vindo admin, a seguir você terá acesso a área de controle\n");
+                printf("\nBem vindo admin, a seguir voce tera acesso a area de controle\n");
                 printf("%s\n", sessao_user.username);
                 Sleep(2000);
 
@@ -164,6 +171,7 @@ int main(void)
                     else if (escolha_admin == 2)
                     {
                         listarCategorias();
+                        getchar();
                     }
                     else if (escolha_admin == 3)
                     {
@@ -218,7 +226,7 @@ int main(void)
                         {
                             printf("\nErro ao ler nome da busca.\n");
                         }
-                        printf("Informe o retorno à categoria:\n");
+                        printf("Informe o retorno para a categoria:\n");
                         if (fgets(retorno, 200, stdin) == NULL)
                         {
                             printf("\nErro ao ler retorno.\n");
@@ -230,6 +238,8 @@ int main(void)
                     {
                         cadastroAdministrador();
                     }
+                    getchar();
+                    limpar_terminal();
                 } while (escolha_admin != 0);
             } // <- fim área usuario admin logado.
             else
@@ -238,6 +248,7 @@ int main(void)
             }
 
             limpar_sessao_usuario(&sessao_user);
+            limpar_terminal();
             // Retoma a execução no menu inicial.
             continue;
         }
@@ -263,9 +274,10 @@ int main(void)
         }
         else
         {
-            printf("Informe uma opção válida");
+            printf("Informe uma opção valida");
         }
-
+        getchar();
+        limpar_terminal();
     } while (opcao_navegacao_inicial != 0);
 
     return 0;
@@ -313,7 +325,6 @@ int menuInicialLoginCadastro()
         - Menu inicial da aplicação.
         - Retorna a escolha do usuário.
     */
-
     int opc = 0;
     printf("Menu inicial\n");
     printf("1 - Login\n");
@@ -451,9 +462,9 @@ int menuUserComum(Usuario *usuario)
 {
     int opc = 0;
     printf("Menu usuário - sessão: %s\n", usuario->username);
-    printf("1 - Registrar feedback.\n");     // ok
-    printf("2 - Consulta de satisfação.\n"); // ok.
-    printf("3 - Consultar categorias.\n");   // ok
+    printf("1 - Registrar feedback.\n");     
+    printf("2 - Consulta de satisfação.\n"); 
+    printf("3 - Consultar categorias.\n");
     printf("0 - Sair.\n");
     scanf("%d", &opc);
     return opc;
@@ -463,14 +474,14 @@ int menuUserAdmin(Usuario *usuario)
 {
     int opc = 0;
     printf("Menu administrador - sessão: %s\n", usuario->username);
-    printf("1 - Criar categoria.\n");                  // ok
-    printf("2 - Vizualizar categorias.\n");            // ok
-    printf("3 - Atualizar categoria.\n");              // ok
-    printf("4 - Deletar categoria.\n");                // ok
-    printf("5 - Vizualizar feedback por categoria\n"); // ok
-    printf("6 - Cadastrar retorno.\n");                // ok
-    printf("7 - Cadastrar admnistrador.\n");           // ok
-    printf("0 - Sair.\n");                             // ok
+    printf("1 - Criar categoria.\n");
+    printf("2 - Vizualizar categorias.\n");
+    printf("3 - Atualizar categoria.\n");
+    printf("4 - Deletar categoria.\n");
+    printf("5 - Vizualizar feedback por categoria\n");
+    printf("6 - Cadastrar retorno.\n");
+    printf("7 - Cadastrar admnistrador.\n");
+    printf("0 - Sair.\n");
 
     scanf("%d", &opc);
     return opc;
