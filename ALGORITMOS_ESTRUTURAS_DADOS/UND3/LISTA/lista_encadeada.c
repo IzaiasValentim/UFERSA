@@ -27,7 +27,8 @@ void menu()
 {
     printf("-- Escolha uma opcao --\n");
     printf("1 - inserir novo estudante\n");
-    printf("2 - sair\n");
+    printf("2 - Mostrar lista\n");
+    printf("0 - sair\n");
 }
 void InserirNoInicio(Lista_Estudante *lista, Estudante dado)
 {
@@ -35,6 +36,18 @@ void InserirNoInicio(Lista_Estudante *lista, Estudante dado)
     novo->dado = dado;
     novo->proximo = lista->inicio;
     lista->inicio = novo;
+}
+
+void MostrarLista(Lista_Estudante lista)
+{
+    printf("-- Dados na lista: --\n");
+    struct No *ponteiroCorrente = lista.inicio;
+    int cont = 0;
+    while (ponteiroCorrente != NULL)
+    {
+        printf("%d - %s - %d\n", ++cont, ponteiroCorrente->dado.nome, ponteiroCorrente->dado.mat);
+        ponteiroCorrente = ponteiroCorrente->proximo;
+    }
 }
 
 int main()
@@ -52,11 +65,15 @@ int main()
             LerEstudante(&e);
             InserirNoInicio(&lista, e);
         }
+        else if (operacao == 2)
+        {
+            MostrarLista(lista);
+        }
         else
         {
             printf("\nBye");
         }
-    } while (operacao != 2);
+    } while (operacao != 0);
 
     return 0;
 }
