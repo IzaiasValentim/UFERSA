@@ -26,8 +26,9 @@ void LerEstudante(Estudante *estudante)
 void menu()
 {
     printf("-- Escolha uma opcao --\n");
-    printf("1 - inserir novo estudante\n");
-    printf("2 - Mostrar lista\n");
+    printf("1 - inserir novo estudante no inicio\n");
+    printf("2 - inserir novo estudante no fim\n");
+    printf("3 - Mostrar lista\n");
     printf("0 - sair\n");
 }
 void InserirNoInicio(Lista_Estudante *lista, Estudante dado)
@@ -36,6 +37,24 @@ void InserirNoInicio(Lista_Estudante *lista, Estudante dado)
     novo->dado = dado;
     novo->proximo = lista->inicio;
     lista->inicio = novo;
+}
+
+void InserirNoFim(Lista_Estudante *lista, Estudante dado)
+{
+    struct No *novo = (struct No *)malloc(sizeof(struct No));
+    novo->dado = dado;
+    novo->proximo = NULL;
+    if (lista->inicio == NULL)
+    {
+        lista->inicio = novo;
+    }
+    else
+    {
+        struct No *pi;
+        for (pi = lista->inicio; pi->proximo != NULL; pi = pi->proximo)
+            ;
+        pi->proximo = novo;
+    }
 }
 
 void MostrarLista(Lista_Estudante lista)
@@ -66,6 +85,12 @@ int main()
             InserirNoInicio(&lista, e);
         }
         else if (operacao == 2)
+        {
+            Estudante e;
+            LerEstudante(&e);
+            InserirNoFim(&lista, e);
+        }
+        else if (operacao == 3)
         {
             MostrarLista(lista);
         }
