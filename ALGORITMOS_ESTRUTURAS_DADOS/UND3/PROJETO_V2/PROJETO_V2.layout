@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Layout>
+	<Files>
+		<File Name="Feedbacks\feedbacks.c" Top="Yes" Tabpos="1" TopLine="1">
+			<Cursor Line="21" Column="40"/>
+		</File>
+	</Files>
+	<Folders>
+		<Folder Name="Feedbacks" Expanded="Yes"/>
+		<Folder Name="Usuarios" Expanded="Yes"/>
+		<Folder Name="Categorias" Expanded="Yes"/>
+	</Folders>
+</Layout>

@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-// windows.h -> para função Sleep.
+// windows.h -> para funï¿½ï¿½o Sleep.
 #include <windows.h>
 
 // para setlocale
 #include <locale.h>
 
-// Para operações com cadeias de caracteres.
+// Para operaï¿½ï¿½es com cadeias de caracteres.
 #include <string.h>
 
 #include "Usuarios/usuarios.h"
@@ -15,7 +15,7 @@
 
 #include "Feedbacks/feedbacks.h"
 
-// Protótipos das funções de navegação.
+// Protï¿½tipos das funï¿½ï¿½es de navegaï¿½ï¿½o.
 int menuInicialLoginCadastro();
 int menuUserComum(Usuario *usuario);
 int menuUserAdmin(Usuario *usuario);
@@ -35,12 +35,12 @@ void prints_usuarios_teste()
 
 int main(void)
 {
-    // Variável de controle para o primeiro menu.
+    // Variï¿½vel de controle para o primeiro menu.
     int opcao_navegacao_inicial;
-
+	carregarListaFeedbacks();
     setlocale(LC_ALL, "portuguese");
 
-    // Essa função é apenas demonstrativa em desenvolvimento e teste. Em produção ela não existiria:
+    // Essa funï¿½ï¿½o ï¿½ apenas demonstrativa em desenvolvimento e teste. Em produï¿½ï¿½o ela nï¿½o existiria:
     // prints_usuarios_teste();
 
     printf("Bem vindo(a) a plataforma de feedback\n");
@@ -64,10 +64,10 @@ int main(void)
         else if (opcao_navegacao_inicial == 1)
         {
             Usuario sessao_user;
-            // sessão_user armazena o usuario aprovado no login.
+            // sessï¿½o_user armazena o usuario aprovado no login.
 
             int status_login;
-            // status_login é a variável de controle para a tela de Login.
+            // status_login ï¿½ a variï¿½vel de controle para a tela de Login.
             // 0 -> Erro no login;
             // 1 -> Usuario comum/anonimo autorizado;
             // 2 -> Administrador autorizado;
@@ -75,9 +75,9 @@ int main(void)
             status_login = menuLogin(&sessao_user);
 
             if (status_login == 1)
-            { // <- Início Área usuario comum/anonimo logado.
+            { // <- Inï¿½cio ï¿½rea usuario comum/anonimo logado.
 
-                printf("\nBem vindo usuario, a seguir você tera acesso a area de feedback\n");
+                printf("\nBem vindo usuario, a seguir voce tera acesso a area de feedback\n");
                 Sleep(2000);
                 printf("%s\n", sessao_user.username);
                 int escolha_comum;
@@ -86,7 +86,7 @@ int main(void)
                 {
 
                     escolha_comum = menuUserComum(&sessao_user);
-                    // Funções do menuUsuario.
+                    // Funï¿½ï¿½es do menuUsuario.
                     if (escolha_comum == 1)
                     {
                         printf("1 - Registro de feedback:\n");
@@ -102,12 +102,12 @@ int main(void)
                     }
 
                 } while (escolha_comum != 0);
-            } //<- Fim da Área do usuário comum/anonimo.
+            } //<- Fim da ï¿½rea do usuï¿½rio comum/anonimo.
 
             else if (status_login == 2)
-            { //-> Área usuario admin logado.
+            { //-> ï¿½rea usuario admin logado.
 
-                printf("\nBem vindo admin, a seguir você tera acesso a area de controle\n");
+                printf("\nBem vindo admin, a seguir voce tera acesso a area de controle\n");
                 printf("%s\n", sessao_user.username);
                 Sleep(2000);
 
@@ -115,7 +115,7 @@ int main(void)
                 do
                 {
                     escolha_admin = menuUserAdmin(&sessao_user);
-                    // Funções do menu Admin;
+                    // Funï¿½ï¿½es do menu Admin;
                     if (escolha_admin == 1)
                     {
                         cadastrarCategoria(sessao_user);
@@ -161,8 +161,10 @@ int main(void)
                     else if (escolha_admin == 5)
                     {
                         listarFeedback();
-                    }
-                    else if (escolha_admin == 6)
+                    }else if(escolha_admin == 6){
+						ordenarFeedbackPorNota();
+					}
+                    else if (escolha_admin == 7)
                     {
 
                         char categoriaBusca[30];
@@ -185,19 +187,19 @@ int main(void)
 
                         atualizarCategoria(sessao_user, categoriaBusca, retorno);
                     }
-                    else if (escolha_admin == 7)
+                    else if (escolha_admin == 8)
                     {
                         cadastroAdministrador();
                     }
                 } while (escolha_admin != 0);
-            } // <- fim área usuario admin logado.
+            } // <- fim ï¿½rea usuario admin logado.
             else
             { // <- Login sem sucesso.
                 printf("Falha no login");
             }
 
             limpar_sessao_usuario(&sessao_user);
-            // Retoma a execução no menu inicial.
+            // Retoma a execuï¿½ï¿½o no menu inicial.
             continue;
         }
 
@@ -209,20 +211,20 @@ int main(void)
             {
                 printf("Cadastro realizado com sucesso!\n");
 
-                // Retoma a execução do menu inicial.
+                // Retoma a execuï¿½ï¿½o do menu inicial.
                 continue;
             }
             else
             {
                 printf("falha no cadastro\n");
 
-                // Retoma a execução no menu inicial.
+                // Retoma a execuï¿½ï¿½o no menu inicial.
                 continue;
             }
         }
         else
         {
-            printf("Informe uma opcao válida");
+            printf("Informe uma opcao valida");
         }
 
     } while (opcao_navegacao_inicial != 0);
@@ -233,8 +235,8 @@ int main(void)
 int menuInicialLoginCadastro()
 {
     /*
-        - Menu inicial da aplicação.
-        - Retorna a escolha do usuário.
+        - Menu inicial da aplicaï¿½ï¿½o.
+        - Retorna a escolha do usuï¿½rio.
     */
     int opc = 0;
     printf("Menu inicial\n");
@@ -248,9 +250,9 @@ int menuInicialLoginCadastro()
 int menuUserComum(Usuario *usuario)
 {
     int opc = 0;
-    printf("Menu usuário - sessão: %s\n", usuario->username);
+    printf("Menu usuario - sessao: %s\n", usuario->username);
     printf("1 - Registrar feedback.\n");
-    printf("2 - Consulta de satisfação.\n");
+    printf("2 - Consulta de satisfacao.\n");
     printf("3 - Consultar categorias.\n");
     printf("0 - Sair.\n");
     scanf("%d", &opc);
@@ -260,14 +262,15 @@ int menuUserComum(Usuario *usuario)
 int menuUserAdmin(Usuario *usuario)
 {
     int opc = 0;
-    printf("Menu administrador - sessão: %s\n", usuario->username);
+    printf("Menu administrador - sessao: %s\n", usuario->username);
     printf("1 - Criar categoria.\n");
     printf("2 - Vizualizar categorias.\n");
     printf("3 - Atualizar categoria.\n");
     printf("4 - Deletar categoria.\n");
     printf("5 - Vizualizar feedback por categoria\n");
-    printf("6 - Cadastrar retorno.\n");
-    printf("7 - Cadastrar admnistrador.\n");
+    printf("6 - Ordenar feedbacks(M -> m)\n");
+    printf("7 - Cadastrar retorno.\n");
+    printf("8 - Cadastrar admnistrador.\n");
     printf("0 - Sair.\n");
 
     scanf("%d", &opc);

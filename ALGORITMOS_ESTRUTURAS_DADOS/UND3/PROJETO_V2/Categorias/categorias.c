@@ -20,7 +20,7 @@ void cadastrarCategoria(Usuario userAdmin)
     }
     else
     {
-        printf("Erro na indentificação do administrador da categoria");
+        printf("Erro na indentificacao do administrador da categoria");
         return;
     }
 
@@ -120,7 +120,7 @@ void atualizarCategoria(Usuario userAdmin, char *nomeCategoria, char *retornoFee
 
             if (retornoFeedback == NULL)
             {
-                // Neste caso o nome da categoria é atualizado.
+                // Neste caso o nome da categoria ï¿½ atualizado.
                 char novoNome[30];
                 printf("Informe o novo nome da categoria:\n");
 
@@ -135,7 +135,7 @@ void atualizarCategoria(Usuario userAdmin, char *nomeCategoria, char *retornoFee
             }
             else
             {
-                // Neste caso é cadastrado um retono para a categoria.
+                // Neste caso ï¿½ cadastrado um retono para a categoria.
                 strcpy(cats[i].retorno_categoria, retornoFeedback);
             }
         }
@@ -143,7 +143,7 @@ void atualizarCategoria(Usuario userAdmin, char *nomeCategoria, char *retornoFee
         fwrite(&cats[i], sizeof(Categoria), 1, file_categorias);
     }
     fclose(file_categorias);
-    printf("Processo de alteração finalizado!");
+    printf("Processo de alteracao finalizado!");
     return;
 }
 
@@ -170,7 +170,7 @@ void deletarCategoria(char *nomeCategoria)
         }
     }
     fclose(file_categorias);
-    printf("Processo de exclusão finalizado!");
+    printf("Processo de exclusao finalizado!");
     return;
 }
 

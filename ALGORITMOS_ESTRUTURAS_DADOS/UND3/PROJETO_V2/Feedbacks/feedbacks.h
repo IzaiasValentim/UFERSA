@@ -4,9 +4,12 @@ typedef struct feedback
     char texto[200];
     float nota;
     char nome_categoria[30];
-
+	struct feedback *prox;
 } Feedback;
 
+void carregarListaFeedbacks();
 void cadastrarFeedback(Usuario usuarioComum);
 void listarFeedback();
+int numeroFeedbacksCadastrados();
+void ordenarFeedbackPorNota();
 void calculoSatisfacao();
