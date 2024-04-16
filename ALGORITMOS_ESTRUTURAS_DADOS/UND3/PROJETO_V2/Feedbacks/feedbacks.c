@@ -3,6 +3,7 @@
 #include "feedbacks.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 Feedback *inicio_lista_feedbacks = NULL;
 
@@ -17,7 +18,7 @@ void carregarListaFeedbacks() {
     while (fread(&novo_feedback, sizeof(Feedback), 1, file_feedbacks)) {
         Feedback *novo_no = (Feedback *)malloc(sizeof(Feedback));
         if (novo_no == NULL) {
-            printf("Erro ao alocar mem?ria para feedback.\n");
+            printf("Erro ao alocar memoria para feedback.\n");
             fclose(file_feedbacks);
             return;
         }
@@ -53,7 +54,7 @@ void cadastrarFeedback(Usuario usuarioComum)
  	
  	if (novo_feedback == NULL)
     {
-        printf("Erro ao alocar mem?ria para o feedback.\n");
+        printf("Erro ao alocar memoria para o feedback.\n");
         return;
     }
  	
@@ -61,7 +62,7 @@ void cadastrarFeedback(Usuario usuarioComum)
 
     if (file_feedbacks == NULL)
     {
-        printf("Erro ao abrir o arquivo de usu?rios.\n");
+        printf("Erro ao abrir o arquivo de usuarios.\n");
         return;
     }
 
@@ -89,7 +90,7 @@ void cadastrarFeedback(Usuario usuarioComum)
 
     if (fwrite(novo_feedback, sizeof(Feedback), 1, file_feedbacks) != 1)
     {
-        printf("Erro ao escrever no arquivo de usu?rios.\n");
+        printf("Erro ao escrever no arquivo de usuarios.\n");
         fclose(file_feedbacks);
     }
     printf("Obrigado, salvo com sucesso!\n");
@@ -138,6 +139,57 @@ void listarFeedback()
     fclose(file_categorias);
 }
 
+int numeroFeedbacksCadastrados() {
+    int contador = 0;
+    Feedback *atual = inicio_lista_feedbacks;
+
+    while (atual != NULL) {
+        contador++; 
+        atual = atual->prox; 
+    }
+
+    return contador;
+}
+
+void ordenarFeedbackPorNota() {
+    FILE *file_feedbacks = fopen("feedbacks.b", "rb+");
+    if (file_feedbacks == NULL) {
+        printf("Erro ao abrir o arquivo de feedbacks para ordenacao.\n");
+        return;
+    }
+	
+	int num_feedbacks = numeroFeedbacksCadastrados();
+    
+	Feedback feedbacks[num_feedbacks];
+    fread(feedbacks, sizeof(Feedback), num_feedbacks, file_feedbacks);
+    
+	if (num_feedbacks == 0) {
+        printf("Nao ha feedbacks para ordenar.\n");
+        fclose(file_feedbacks);
+        return;
+    }
+	int i,j;
+    // Algoritmo de ordena??o - Bubble Sort
+    for (i = 0; i < num_feedbacks - 1; i++) {
+        for (j = 0; j < num_feedbacks - i - 1; j++) {
+            if (feedbacks[j].nota < feedbacks[j + 1].nota) {
+                
+                Feedback temp = feedbacks[j];
+                feedbacks[j] = feedbacks[j + 1];
+                feedbacks[j + 1] = temp;
+            
+			}
+        }
+    }
+
+    // Escreve os feedbacks ordenados de volta no arquivo
+    rewind(file_feedbacks);
+    fwrite(feedbacks, sizeof(Feedback), num_feedbacks, file_feedbacks);
+
+    fclose(file_feedbacks);
+    printf("Feedbacks ordenados com sucesso.\n");
+}
+
 void calculoSatisfacao()
 {
 
@@ -181,11 +233,11 @@ void calculoSatisfacao()
     }
     if (cont > 0)
     {
-        printf("Satisfa??o m?dia do(a) %s ? %.1f pontos\n", busca, soma / cont);
+        printf("Satisfaco media do(a) %s e %.1f pontos\n", busca, soma / cont);
     }
     else
     {
-        printf("Ainda n?o foram registrados feedbacks para %s\n", busca);
+        printf("Ainda nao foram registrados feedbacks para %s\n", busca);
     }
 
     fclose(file_feedbacks);
