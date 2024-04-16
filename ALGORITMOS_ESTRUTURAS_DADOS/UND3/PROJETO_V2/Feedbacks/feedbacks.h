@@ -10,4 +10,6 @@ typedef struct feedback
 void carregarListaFeedbacks();
 void cadastrarFeedback(Usuario usuarioComum);
 void listarFeedback();
+int numeroFeedbacksCadastrados();
+void ordenarFeedbackPorNota();
 void calculoSatisfacao();
