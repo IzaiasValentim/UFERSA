@@ -37,7 +37,7 @@ int main(void)
 {
     // Variável de controle para o primeiro menu.
     int opcao_navegacao_inicial;
-
+	carregarListaFeedbacks();
     setlocale(LC_ALL, "portuguese");
 
     // Essa função é apenas demonstrativa em desenvolvimento e teste. Em produção ela não existiria:
@@ -161,8 +161,10 @@ int main(void)
                     else if (escolha_admin == 5)
                     {
                         listarFeedback();
-                    }
-                    else if (escolha_admin == 6)
+                    }else if(escolha_admin == 6){
+						ordenarFeedbackPorNota();
+					}
+                    else if (escolha_admin == 7)
                     {
 
                         char categoriaBusca[30];
@@ -185,7 +187,7 @@ int main(void)
 
                         atualizarCategoria(sessao_user, categoriaBusca, retorno);
                     }
-                    else if (escolha_admin == 7)
+                    else if (escolha_admin == 8)
                     {
                         cadastroAdministrador();
                     }
@@ -266,8 +268,9 @@ int menuUserAdmin(Usuario *usuario)
     printf("3 - Atualizar categoria.\n");
     printf("4 - Deletar categoria.\n");
     printf("5 - Vizualizar feedback por categoria\n");
-    printf("6 - Cadastrar retorno.\n");
-    printf("7 - Cadastrar admnistrador.\n");
+    printf("6 - Ordenar feedbacks(M -> m)\n");
+    printf("7 - Cadastrar retorno.\n");
+    printf("8 - Cadastrar admnistrador.\n");
     printf("0 - Sair.\n");
 
     scanf("%d", &opc);
