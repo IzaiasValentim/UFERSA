@@ -48,7 +48,15 @@ void cadastrarFeedback(Usuario usuarioComum)
     {
         return;
     }
-
+	
+	Feedback *novo_feedback = (Feedback*) malloc(sizeof(Feedback));
+ 	
+ 	if (novo_feedback == NULL)
+    {
+        printf("Erro ao alocar mem?ria para o feedback.\n");
+        return;
+    }
+ 	
     FILE *file_feedbacks = fopen("feedbacks.b", "ab");
 
     if (file_feedbacks == NULL)
@@ -57,13 +65,12 @@ void cadastrarFeedback(Usuario usuarioComum)
         return;
     }
 
-    Feedback cadastro_feedback;
-
-    strcpy(cadastro_feedback.username_autor, usuarioComum.username);
-    strcpy(cadastro_feedback.nome_categoria, busca);
+    
+    strcpy(novo_feedback->username_autor, usuarioComum.username);
+    strcpy(novo_feedback->nome_categoria, busca);
 
     printf("Informe o seu feedback\n");
-    if (fgets(cadastro_feedback.texto, 200, stdin) == NULL)
+    if (fgets(novo_feedback->texto, 200, stdin) == NULL)
     {
         printf("Erro ao coletar feedback.\n");
         fclose(file_feedbacks);
@@ -71,13 +78,16 @@ void cadastrarFeedback(Usuario usuarioComum)
     }
 
     printf("Informe a nota para a categoria:\n");
-    if (scanf("%f", &cadastro_feedback.nota) != 1)
+    if (scanf("%f", &novo_feedback->nota) != 1)
     {
         printf("Erro ao ler nota.\n");
         fclose(file_feedbacks);
     }
+    
+    novo_feedback->prox = inicio_lista_feedbacks;
+    inicio_lista_feedbacks = novo_feedback;
 
-    if (fwrite(&cadastro_feedback, sizeof(Feedback), 1, file_feedbacks) != 1)
+    if (fwrite(novo_feedback, sizeof(Feedback), 1, file_feedbacks) != 1)
     {
         printf("Erro ao escrever no arquivo de usu?rios.\n");
         fclose(file_feedbacks);
