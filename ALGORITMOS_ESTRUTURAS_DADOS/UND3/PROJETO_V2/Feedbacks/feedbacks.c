@@ -4,6 +4,30 @@
 #include <stdio.h>
 #include <string.h>
 
+Feedback *inicio_lista_feedbacks = NULL;
+
+void carregarListaFeedbacks() {
+    FILE *file_feedbacks = fopen("feedbacks.b", "rb");
+    if (file_feedbacks == NULL) {
+        printf("Arquivo de feedbacks nao encontrado ou vazio.\n");
+        return;
+    }
+
+    Feedback novo_feedback;
+    while (fread(&novo_feedback, sizeof(Feedback), 1, file_feedbacks)) {
+        Feedback *novo_no = (Feedback *)malloc(sizeof(Feedback));
+        if (novo_no == NULL) {
+            printf("Erro ao alocar mem?ria para feedback.\n");
+            fclose(file_feedbacks);
+            return;
+        }
+		memcpy(novo_no, &novo_feedback, sizeof(Feedback));
+        novo_no->prox = inicio_lista_feedbacks;
+        inicio_lista_feedbacks = novo_no;
+    }
+    fclose(file_feedbacks);
+}
+
 void cadastrarFeedback(Usuario usuarioComum)
 {
     listarCategorias();
