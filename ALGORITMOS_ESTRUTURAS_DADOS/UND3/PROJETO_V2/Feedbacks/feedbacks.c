@@ -132,7 +132,7 @@ void listarFeedback()
         if (strcmp(mock_feedback.nome_categoria, busca) == 0)
         {
             printf("%d %s %s %.2f;\n", ++cont, mock_feedback.texto, mock_feedback.username_autor, mock_feedback.nota);
-        }
+		}
     }
 
     fclose(file_categorias);
@@ -160,8 +160,8 @@ void calculoSatisfacao()
         return;
     }
 
-    FILE *file_categorias = fopen("feedbacks.b", "rb");
-    if (file_categorias == NULL)
+    FILE *file_feedbacks = fopen("feedbacks.b", "rb");
+    if (file_feedbacks == NULL)
     {
         printf("Erro ao acessar base de dados de feedbacks.\n");
     }
@@ -171,7 +171,7 @@ void calculoSatisfacao()
     int cont = 0;
     float soma = 0.0;
 
-    while (fread(&mock_feedback, sizeof(Feedback), 1, file_categorias))
+    while (fread(&mock_feedback, sizeof(Feedback), 1, file_feedbacks))
     {
         if (strcmp(mock_feedback.nome_categoria, busca) == 0)
         {
@@ -188,5 +188,5 @@ void calculoSatisfacao()
         printf("Ainda n?o foram registrados feedbacks para %s\n", busca);
     }
 
-    fclose(file_categorias);
+    fclose(file_feedbacks);
 }
