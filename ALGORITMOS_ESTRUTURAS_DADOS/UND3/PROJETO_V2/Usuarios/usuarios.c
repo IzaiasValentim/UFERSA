@@ -8,7 +8,7 @@ int cadastroUsuario()
 
     if (file_usuario == NULL)
     {
-        printf("Erro ao abrir o arquivo de usuários.\n");
+        printf("Erro ao abrir o arquivo de usuarios.\n");
         return 1;
     }
 
@@ -25,7 +25,7 @@ int cadastroUsuario()
     printf("Informe sua matricula\n");
     if (scanf("%d", &usuario.matricula) != 1)
     {
-        printf("Erro ao ler a matrícula.\n");
+        printf("Erro ao ler a matricula.\n");
         fclose(file_usuario);
         return 1;
     }
@@ -51,7 +51,7 @@ int cadastroUsuario()
     usuario.usuario_admin = 0;
     if (fwrite(&usuario, sizeof(Usuario), 1, file_usuario) != 1)
     {
-        printf("Erro ao escrever no arquivo de usuários.\n");
+        printf("Erro ao escrever no arquivo de usuarios.\n");
         fclose(file_usuario);
         return 1;
     }
@@ -63,7 +63,7 @@ int cadastroUsuario()
 int verificaEmail(char *email)
 {
 	
-    // Verifica se o email contém o caractere '@'
+    // Verifica se o email contï¿½m o caractere '@'
     char *arroba = strchr(email, '@');
     if (arroba == NULL)
     {
@@ -71,7 +71,7 @@ int verificaEmail(char *email)
         return 1;
     }
 
-    // Verifica se o comprimento do email é menor que 80 caracteres
+    // Verifica se o comprimento do email ï¿½ menor que 80 caracteres
     if (strlen(email) >= 80)
     {
         printf("O email deve ser menor que 80 caracteres.\n");
@@ -81,7 +81,7 @@ int verificaEmail(char *email)
     FILE *arquivo = fopen("usuarios.b", "rb");
     if (arquivo == NULL)
     {
-        return 1; // Se o arquivo não puder ser aberto, retorna falso
+        return 1; // Se o arquivo nï¿½o puder ser aberto, retorna falso
     }
 
     Usuario usuario;
@@ -90,7 +90,7 @@ int verificaEmail(char *email)
         if (strcmp(usuario.email, email) == 0)
         {
             fclose(arquivo);
-            printf("Email já cadastrado na base de dados.\n");
+            printf("Email ja cadastrado na base de dados.\n");
             return 1;
         }
     }
@@ -123,7 +123,7 @@ int menuLogin(Usuario *usuario)
         return 0;
     }
 
-    // Permite o acesso de usuário anônimo.
+    // Permite o acesso de usuï¿½rio anï¿½nimo.
     if (strcmp(email, "anonimo") == 0)
     {
         strcpy(usuario->username, "Anonimo(a)");
@@ -141,7 +141,7 @@ int menuLogin(Usuario *usuario)
 
     while (fread(&usuario_buscado, sizeof(Usuario), 1, file_usuarios))
     {
-        // Comparação entre email e senhas.
+        // Comparaï¿½ï¿½o entre email e senhas.
         if (strcmp(usuario_buscado.email, email) == 0 && strcmp(usuario_buscado.senha, senha) == 0)
         {
             if ((usuario_buscado).usuario_admin == 0)
@@ -170,7 +170,7 @@ int cadastroAdministrador()
 
     if (file_usuario == NULL)
     {
-        printf("Erro ao abrir o arquivo de usuários.\n");
+        printf("Erro ao abrir o arquivo de usuarios.\n");
         return 1;
     }
 
@@ -187,7 +187,7 @@ int cadastroAdministrador()
     printf("Informe a matricula do adm\n");
     if (scanf("%d", &usuario.matricula) != 1)
     {
-        printf("Erro ao ler a matrícula.\n");
+        printf("Erro ao ler a matricula.\n");
         fclose(file_usuario);
         return 1;
     }
@@ -215,7 +215,7 @@ int cadastroAdministrador()
     usuario.usuario_admin = 1;
     if (fwrite(&usuario, sizeof(Usuario), 1, file_usuario) != 1)
     {
-        printf("Erro ao escrever no arquivo de usuários.\n");
+        printf("Erro ao escrever no arquivo de usuarios.\n");
         fclose(file_usuario);
         return 1;
     }
