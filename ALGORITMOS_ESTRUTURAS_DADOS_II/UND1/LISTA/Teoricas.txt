@@ -1,0 +1,22 @@
+Q6 -)
+    Sendo o cálculo do fatorial recursivo definido da seguinte forma, onde x e N.Caso base: se x =0, fat(0) = 1. 
+    Caso contrário fat(x>0) = x * fat( x-1 ). 
+    
+    - Exemplificando com fat(3):
+        fat(3) = 3 * fat(2) ->chamada recursiva
+        fat(3) = 3 * 2 * fat(1) -> chamada recursiva
+        fat(3) = 3 * 2 * 1 * fat(0) ->chamada recursiva
+        fat(3) = 3 * 2 * (1 * 1) -> retorno recursivo
+        fat(3) = 3 * (2 * 1)
+        fat(3) = (3 * 2)
+        fat (3) = 6 -> Retorno da função.
+
+Q7 -) 
+    Esta pode ser uma das etapas do processo recursivo de verificação. Porém ainda é preciso validar de acordo com as 3 regras.
+    Se o ano for divisivel por 4 ele é bissexo, caso  contrário é necessário verificar que se for divisivel por 100 ele não será 
+    bissexto ao menos que seja divisivel por 400.
+
+Q8 -) ?
+
+Q9 -) ?
+
