@@ -1,0 +1,5 @@
+Compilar no gcc
+>gcc -o <nameSaide> <nomeArquivo.c>
+
+Compilar em depuração:
+>gcc -g -o <nomeSaida> <nomeArquivo.c>

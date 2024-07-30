@@ -1,0 +1,48 @@
+set pagination off
+
+# Coloque um breakpoint na função fibonacci
+break fibonacci
+
+# Inicie a execução do programa
+run
+
+# Defina variáveis para contagem e profundidade máxima
+set $fibonacci5_count = 0
+set $max_depth = 0
+
+# Função para contar chamadas de fibonacci(5) e verificar profundidade da pilha
+define hook-stop
+    # Verifique o valor de n
+    if (n == 5)
+        set $fibonacci5_count += 1
+    end
+
+    # Verifique a profundidade da pilha
+    set $depth = 0
+    while (frame $depth)
+        set $depth += 1
+    end
+    if ($depth > $max_depth)
+        set $max_depth = $depth
+    end
+
+    # Pare a execução na primeira vez que fibonacci(14) for calculado
+    if (n == 14)
+        echo "Breakpoint: Calculando fibonacci(14), prestes a calcular fibonacci(13)\n"
+        shell echo "Calculando fibonacci(14), prestes a calcular fibonacci(13)" >> resultado.txt
+        continue
+    end
+    
+    continue
+end
+
+# Continue a execução até o fim
+continue
+
+# Quando a execução terminar, imprima os resultados
+define hook-run
+    echo "Número de chamadas a fibonacci(5): $fibonacci5_count\n"
+    shell echo "Número de chamadas a fibonacci(5): $fibonacci5_count" >> resultado.txt
+    echo "Profundidade máxima da pilha: $max_depth\n"
+    shell echo "Profundidade máxima da pilha: $max_depth" >> resultado.txt
+end
