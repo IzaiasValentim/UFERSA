@@ -12,9 +12,9 @@ Q6 -)
         fat (3) = 6 -> Retorno da função.
 
 Q7 -) 
-    Esta pode ser uma das etapas do processo recursivo de verificação. Porém ainda é preciso validar de acordo com as 3 regras.
-    Se o ano for divisivel por 4 ele é bissexo, caso  contrário é necessário verificar que se for divisivel por 100 ele não será 
-    bissexto ao menos que seja divisivel por 400.
+    Esta pode ser uma das etapas do processo recursivo de verificação. Porém ainda é preciso adicionar uma camada de validação de 
+    acordo com as 3 regras: Se o ano for divisível por 4 ele é bissexto, caso  contrário é necessário verificar que se for divisivel
+    por 100 ele não será bissexto ao menos que seja divisível por 400.
 
 Q8 -) ?
 
