@@ -32,3 +32,27 @@ Q14 -)
     c) Complexidade O(n): A função cresce linearmente com o tamanho da entrada. Para grandes valores de n, a função que cresce linearmente 
     será mais eficiente do que uma função que cresce quadraticamente. Complexidade  Θ(n²): A função cresce quadraticamente com o tamanho da
     entrada. Isso significa que, para entradas grandes, o tempo de execução será muito maior comparado com uma função linear.
+
+Q15 -)
+    As complexidades dependem do algoritmo utilizado.
+    a) Bubble Sort O(n²)
+    b) O(n) -> É necessário percorrer toda a lista.
+    c) O(n) -> 
+    d) O(1) -> Pois a adição é realizada no final da fila.
+    e) O(n) -> 
+
+Q16 -) 
+    a)O(1)
+    b)O(1)
+    c)O(1)
+    d)O(1)
+
+Q17 -)
+
+Q18 -)
+    Analisando a complexidade dos algoritmos com valores crescentes de n é possivel observar que para valores mais baixos o algoritmo B
+    é mais eficiente. Porém para grandes entradas de n, o A é mais eficiente. Logo visando entradas longas, escolheria o algortimo A.
+
+Q19 -)
+    Para ver até qual tamanho de problema A é mais eficiente que B, podemos resolver  inequação: 2n² + 5 < 100n -> 2n² + 5 - 100n < 0.
+     Resolvendo essa equação de segundo grau temos duas raizes x1 = 50 e x2 = 0. Logo, logo entre n>0 e n<50 A será mais eficiente.  
