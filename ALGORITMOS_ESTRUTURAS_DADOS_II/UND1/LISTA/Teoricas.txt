@@ -20,3 +20,15 @@ Q8 -) ?
 
 Q9 -) ?
 
+Q14 -) 
+    a) A notação O(n²) descreve uma função que cresce quadraticamente com o tamanho da entrada n. Se uma função f(n) tem complexidade
+    O(n²), isso significa que existe uma constante C e um valor n0 ​tal que para todos n≥n0,a função f(n) é no máximo C⋅n². Em outras 
+    palavras, a função f(n) é limitada superiormente por uma função quadrática para grandes valores de n.
+    
+    b) A notação Θ(nlogn) indica que o tempo de execução do algoritmo cresce como  nlogn. A notação Θ descreve uma limitação superior e 
+    inferior exata, o que significa que o tempo de execução do algoritmo está rigidamente entre duas funções lineares proporcionais a 
+    n logn. Em termos práticos, isso implica que o tempo de execução do algoritmo é assintoticamente nlogn para grandes entradas, tanto no melhor quanto no pior caso.
+    
+    c) Complexidade O(n): A função cresce linearmente com o tamanho da entrada. Para grandes valores de n, a função que cresce linearmente 
+    será mais eficiente do que uma função que cresce quadraticamente. Complexidade  Θ(n²): A função cresce quadraticamente com o tamanho da
+    entrada. Isso significa que, para entradas grandes, o tempo de execução será muito maior comparado com uma função linear.
