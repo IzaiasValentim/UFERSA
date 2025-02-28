@@ -1,0 +1,8 @@
+13) E - Público e Estático.
+
+14) B - Encapsulamento.
+
+15) C - Nome da Classe, atributos, métodos e visibilidade.
+
+16) A - Haverá um erro de compilação pois existe duas ocorrências de imprimirAtributos com a mesma assinatura (char a)
+	impossibilitando a sobrecarga do método.
