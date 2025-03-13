@@ -22,6 +22,7 @@ public class Main {
 			soma = valorUm + valorDois;
 			possibilidades[soma - 2] = ++possibilidades[soma - 2];
 		}
+		// a parte da porcentagem não precisava. Adicionei por curiosidade mesmo.
 		for (int t = 0; t < TOTAL_POSSIBILIDADES; t++) {
 			System.out.printf("\nSoma: %d - vezes: %d - %.2f", t + 2, possibilidades[t],
 					(float) possibilidades[t] / 36000000 * 100);
