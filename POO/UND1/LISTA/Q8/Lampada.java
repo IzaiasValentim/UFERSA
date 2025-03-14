@@ -20,10 +20,18 @@ public class Lampada {
 		estadoDaLampada = false;
 	}
 
+	public void mostraEstado(){
+		if(estadoDaLampada){
+			System.out.println("A lâmpada está ligada e já foi ligada "+contador.getValor()+"vezes.");
+		}else{
+			System.out.println("A lâmpada está desligada.");
+		}
+	}
+
 	public boolean estahLigada() {
 		return estadoDaLampada;
 	}
-
+	
 	public void vezesLigada() {
 		System.out.println("A lâmpada foi ligada " + contador.getValor() + " vezes.");
 	}
