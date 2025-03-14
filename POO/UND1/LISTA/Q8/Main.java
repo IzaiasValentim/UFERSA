@@ -14,5 +14,7 @@ public class Main {
 
 		lampada.acende();
 		lampada.vezesLigada(); // 3
+		lampada.apaga();
+		lampada.mostraEstado();
 	}
 }

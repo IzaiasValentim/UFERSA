@@ -31,7 +31,6 @@ public class VerificacaoGenerica<T> {
 	}
 
 	@Override
-	// Feito por: source action > Generate toString.
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("VerificacaoGenerica{");

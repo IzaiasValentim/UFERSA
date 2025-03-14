@@ -7,5 +7,13 @@ public class Main {
 		System.out.println("O maior valor entre 7, 2, 1, 0 é: " + MaiorValor.maiorEntreQuatro(7, 2, 1, 0));
 		System.out.println(
 				"O maior valor entre -100, 34, 200, 10, 1 é: " + MaiorValor.maiorEntreCinco(-100, 34, 200, 10, 1));
+		
+		// Versão com int
+
+		System.out.println("O maior valor entre -10 e -3 é: " + MaiorValorV2.maiorEntreDois(-10, -3));
+		System.out.println("O maior valor entre 5, 10 e 2 é: " + MaiorValorV2.maiorEntreTres(5, 10, 2));
+		System.out.println("O maior valor entre 7, 2, 1, 0 é: " + MaiorValorV2.maiorEntreQuatro(7, 2, 1, 0));
+		System.out.println(
+				"O maior valor entre -100, 34, 200, 10, 1 é: " + MaiorValorV2.maiorEntreCinco(-100, 34, 200, 10, 1));
 	}
 }
