@@ -1,0 +1,2 @@
+Sabemos que um construtor é utilizado para criar uma instância de uma determinada classe.
+Logo, um construtor abstrato definiria uma operação que não é permitida em Java: a instanciação de uma classe abstrata.
