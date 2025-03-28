@@ -1,7 +1,9 @@
 package POO.UND3.PRATICAS.P_Arrays;
 
+
 import java.util.ArrayList;
 import java.util.Collections;
+
 
 public class Main {
 	public static void myFindFrist(ArrayList<String> palavras, String alvo) {
@@ -13,6 +15,7 @@ public class Main {
 		String achado = posicao >= 0 ? String.format("Arr[%d] : %s", posicao, palavras.get(posicao))
 				: "Nenhuma ocorrência";
 
+		System.out.println(achado);
 		System.out.println(achado);
 	}
 
