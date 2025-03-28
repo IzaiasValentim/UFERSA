@@ -12,4 +12,13 @@ public class Produto {
 		}
 		return produto;
 	}
+
+	public static int calculaPorLista(int... numeros) {
+		int produto = numeros[0];
+
+		for (int i = 1; i < numeros.length; i++) {
+			produto *= numeros[i];
+		}
+		return produto;
+	}
 }

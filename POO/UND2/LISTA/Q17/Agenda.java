@@ -23,9 +23,9 @@ public class Agenda {
 	// Lista todos os compromissos na data informada.
 	public void listaDia(int d, int m, int a) {
 		System.out.printf("Compromissos do dia: %d/%d/%d:\n", d, m, a);
-		for (int c = 0; c < compromissos.size(); c++) {
-			if (compromissos.get(c).ehNoDia(d, m, a)) {
-				System.err.println(compromissos.get(c));
+		for (EntradaEmAgenda E : compromissos) {
+			if (E.ehNoDia(d, m, a)) {
+				System.out.println(E);
 			}
 		}
 		System.out.println();

@@ -18,5 +18,7 @@ public class Main {
 
 		System.out.println("Produto de l1: " + Produto.calculaProduto(l1));
 		System.out.println("Produto de l2: " + Produto.calculaProduto(l2));
+		System.out.println("Produto por lista1: "+ Produto.calculaPorLista(1,2,3,4));
+		System.out.println("Produto por lista1: "+ Produto.calculaPorLista(-1,2,3,4));
 	}
 }

@@ -31,7 +31,7 @@ public class Computador extends Equipamento {
 		// Utilizando os atributos herdados.
 		return super.toString() +
 				";\nModelo: " + this.getModelo() +
-				"; Preco: " + this.getPreco()+"\n";
+				"; Preco: " + this.getPreco()+"\n"+this.getMarca();
 	}
 
 }
