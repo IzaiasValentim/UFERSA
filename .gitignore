@@ -1,4 +1,7 @@
 *.pdf
 *.exe
-.vscode/
+.o*
 *.class
+
+.vscode/
+.output/
