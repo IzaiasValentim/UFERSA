@@ -1,6 +1,6 @@
 *.pdf
 *.exe
-.o*
+*.o
 *.class
 
 .vscode/
