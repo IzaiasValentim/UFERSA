@@ -1,3 +1,6 @@
+
+A ordem de aplicação das transformações (escala, rotação, translação) afeta o resultado final da posição e orientação de um objeto porque essas transformações não são comutativas quando aplicadas sequencialmente, ou seja, a ordem em que você as aplica importa.
+-------------------
 GEOMETRIA
 
 Dimensão 0:
