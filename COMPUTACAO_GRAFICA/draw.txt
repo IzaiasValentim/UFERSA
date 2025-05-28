@@ -1,0 +1,103 @@
+/**
+ * \file image.c
+ *
+ * \brief Implementação das funções de manipulação da imagem.
+ *
+ * \author
+ * Petrucio Ricardo Tavares de Medeiros \n
+ * Universidade Federal Rural do Semi-Árido \n
+ * Departamento de Engenharias e Tecnologia \n
+ * petrucio at ufersa (dot) edu (dot) br
+ *
+ * \version 1.0
+ * \date May 2025
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h> // Necessário para abs() em draw_line
+
+#include "image.h"
+
+void set_pixel(int x, int y, unsigned char r, unsigned char g, unsigned char b) {
+  if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) {
+    // Acessa a imagem como image[linha][coluna][cor] -> image[y][x][cor]
+    image[y][x][0] = r;
+    image[y][x][1] = g;
+    image[y][x][2] = b;
+  }
+}
+
+void draw_point( int x0, int y0 ){
+  //
+  // Descomente essa linha quando implementar a função rotate
+  // (Mantido comentado conforme o original, mas se quiser rotação de pontos,
+  // precisaria da função rotate)
+  //rotate( &x0, &y0, -10.0 );
+  
+  set_pixel(x0, y0, 0, 0, 0 );
+}
+
+void clr(){
+  // Ordem do laço corrigida para corresponder a image[HEIGHT][WIDTH]
+  for(int y = 0; y < HEIGHT; y++) // Itera pelas linhas (coordenada Y)
+    for(int x = 0; x < WIDTH; x++) // Itera pelas colunas (coordenada X)
+      for(int c = 0; c < 3; c++)
+        image[y][x][c] = 255; // Define o pixel como branco
+}
+
+// --- NOVA FUNÇÃO: Algoritmo de Linha de Bresenham ---
+void draw_line(int x0, int y0, int x1, int y1) {
+    int dx = abs(x1 - x0);
+    int dy = abs(y1 - y0);
+    int sx = (x0 < x1) ? 1 : -1; // Direção do passo em X
+    int sy = (y0 < y1) ? 1 : -1; // Direção do passo em Y
+    int err = dx - dy; // Termo de erro
+
+    while (1) {
+        set_pixel(x0, y0, 0, 0, 0); // Desenha o pixel atual em preto
+
+        if (x0 == x1 && y0 == y1) break; // Chegou ao ponto final
+        int e2 = 2 * err;
+        if (e2 > -dy) {
+            err -= dy;
+            x0 += sx;
+        }
+        if (e2 < dx) {
+            err += dx;
+            y0 += sy;
+        }
+    }
+}
+// --- FIM NOVA FUNÇÃO ---
+
+
+void resizing( float v0x, float v0y, float v1x, float v1y ){
+  // Converte coordenadas normalizadas de dispositivo (-1 a 1) para coordenadas de tela (0 a WIDTH/HEIGHT)
+  int x0 = (int)((v0x + 1.0f) * WIDTH / 2.0f);
+  int y0 = (int)((1.0f - v0y) * HEIGHT / 2.0f); // Inverte o eixo Y para coordenadas de tela (origem superior esquerda)
+  int x1 = (int)((v1x + 1.0f) * WIDTH / 2.0f);
+  int y1 = (int)((1.0f - v1y) * HEIGHT / 2.0f); // Inverte o eixo Y para coordenadas de tela (origem superior esquerda)
+  
+  draw_point( x0, y0 );
+  draw_point( x1, y1 );
+
+  //
+  // Descomente essa linha quando implementar a funcao draw_line
+  //
+  draw_line(x0, y0, x1, y1); // Descomentado para chamar a função draw_line                                                                                                                                    
+}
+
+void save(){
+  printf("P3\n %d \t %d\n 255\n", WIDTH, HEIGHT);
+  // Ordem do laço corrigida para corresponder a image[HEIGHT][WIDTH]
+  for(int y = 0; y < HEIGHT; y++){ // Itera pelas linhas (coordenada Y)
+    for(int x = 0; x < WIDTH; x++){ // Itera pelas colunas (coordenada X)
+      for(int c = 0; c < 3; c++){
+        printf("%d \t", image[y][x][c]);
+      }
+      printf("\n");
+    }
+  }
+}
