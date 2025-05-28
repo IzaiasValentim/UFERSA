@@ -1,0 +1,82 @@
+GEOMETRIA
+
+Dimensão 0:
+
+    - Ponto: Uma localização específica no espaço sem comprimento, largura e altura.
+    P(x,y) P(x,y,z)
+
+Dimensão 1:
+
+    - Linha: É uma coleção infinita de pontos; Possui Comprimento. (<---->)
+
+    - Colinearidade: 3 ou mais pontos em uma linha são colineares.
+
+    - Segmento de Linha: É uma porção de linha definida entre dois pontos. (¯AB¯). (----)
+
+    - Raio / Vetor: É uma meio linha ou uma porção de linha, que vai ter um ponto final e estende sem fim em uma direção. (---->)
+    Vetor oposto = Mesma direção/sentido oposto
+
+Dimensão 2:
+
+    - Plano: É uma superfície ilimitada no espaço com duas dimensões, comprimento e largura.
+
+    - Coplanaridade: Um conjunto de pontos ou linhas são coplanares se eles estão no mesmo plano.
+
+Dimensão 3:
+
+    - Espaço: Conjunto de todos os pontos, tendo comprimento, largura e altura.
+
+- Ângulo: São dois vetores que compartilham o mesmo vértice.
+
+    - Medidas de ângulos:
+        - Graus(°) = 360°
+        - Radianos(rad) = 2πrad
+        1 revolução = 360° = 2πrad
+        1 rad = (180°/π) = (1/2π) revolução
+        1° = (π/180)rad = (1/360)rad
+
+    - Ângulo Congruentes: Se dois ângulos são iguais, então eles tem a mesma medida. Portanto, eles são congruentes.
+
+    - Tipos:
+
+        - Zero: Os vetores coincidem.
+
+        - Reto: Os vetores são perpendiculares, formando um ângulo de (90°).
+
+        - Raso: Os vetores são opostos, formando um ângulo de (180°).
+
+        - Agudo: Forma um ângulo menor que (90°).
+
+        - Obtudo: Forma um ângulo maior que (90°) e menor que (180°).
+
+        - Oblíquo: Obtuso ou Agudo menos o reto e o raso. Um ângulo que não é múltiplo de um ângulo reto.
+
+        - Adjacente: Ângulo que compartilha um lado e um vértice com outro ângulo, mas não possui pontos internos em comum.
+
+        - Complementar: Um par de ângulos que a soma é (90°).
+
+        - Suplementar: Um par de ângulos que a soma é (180°).
+
+- Linhas Paralelas com cortes Transversal: ≠ (Ângulos Congruentes e Suplementares)
+
+- Triângulo: 3 vértices, 3 ângulos e 3 lados.
+
+    - Por lados:
+        - Escaleno: 3 lados distintos.
+        - Equilátero: 3 lados iguais.
+        - Isóceles: 2 lados iguais.
+
+    - Por ãngulos:
+        - Agudo: Todos os ângulos internos são inferiores a (90°) // Todos Agudos
+        - Obtuso: Apenas um ângulo maior que (90°) // 1 Obtudo
+        - Obtuso: Apenas um ângulo de (90°) // 1 Reto (1 hipotenusa, 2 catetos)
+
+    - Teorema de Pitágoras:
+        - sen() = CO/H
+        - cos() = CA/H
+        - tan() = CO/CA
+
+    - Semelhança de Triângulos: Os ângulos internos são iguais, a mesma quantidade de vértices e garantia de proporcionalidade entre os segmentos.
+
+
+    Ex: A sombra de um prédio projetada no solo sobre o plano mede 70m. Nesse instante, a sombra de um poste de 8m mede 14m. Qual é a altura do prédio?
