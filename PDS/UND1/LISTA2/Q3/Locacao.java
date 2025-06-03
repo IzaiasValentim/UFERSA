@@ -8,10 +8,9 @@ import java.util.Date;
  * A classe Locacao armazena dados a respeito da locação de um filme específico.
  * - O filme é inserido na classe atravez da composição.
  * - A data de locação e devolução são automaticamente definidos de acordo com o
- * dia atual e o prazo padrão de locação.;
+ * 	 dia atual e o prazo padrão de locação.;
  * - O prazo de locação também pode ser extendido.
- * - É possível finalizar a Locação. Depois de finalizada o campo estaFinalizada
- * fica 'verdadeiro'
+ * - É possível finalizar a Locação. Depois de finalizada o campo estaFinalizada fica 'verdadeiro'
  */
 public class Locacao {
 
@@ -64,7 +63,8 @@ public class Locacao {
 	}
 
 	public void setEstaFinalizada(boolean estaFinalizada) {
-		this.estaFinalizada = (estaFinalizada == false) ? true : estaFinalizada;
+		this.estaFinalizada = ( estaFinalizada == false ) ? true : estaFinalizada;
 	}
 
+	
 }
